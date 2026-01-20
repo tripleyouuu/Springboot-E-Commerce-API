@@ -47,13 +47,3 @@ Server runs on `http://localhost:8080`.
   - `POST /api/webhooks/payment` – simulate payment callback (`{ "orderId": ..., "status": "SUCCESS" | "FAILED" }`); updates `Payment` and `Order` status.
 
 ---
-
-### Suggested Testing Flow
-
-1. Create 1 user (insert into `users` table) and a few products using `POST /api/products`.
-2. Add products to the user’s cart with `POST /api/cart/add`.
-3. View the cart with `GET /api/cart/{userId}`.
-4. Create an order with `POST /api/orders` and note the `orderId`.
-5. Create a payment with `POST /api/payments/create` using that `orderId`.
-6. Call `POST /api/webhooks/payment` with `{ "orderId": <id>, "status": "SUCCESS" }`.
-7. Check the order using `GET /api/orders/{orderId}` – status should be `PAID`.
